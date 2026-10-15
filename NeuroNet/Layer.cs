@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Windows.Forms;
 
@@ -20,11 +20,11 @@ namespace MO31_Laptander_Wisp.NeuroNet
         protected Neuron[] neurons;
 
         //свойства
-        public double[] Data //
+        public double[] Data
         {
             set
             {
-                for(int i = 0; i < numofneurons; i++)
+                for (int i = 0; i < numofneurons; i++)
                 {
                     neurons[i].Activator(value);
                 }
@@ -34,9 +34,6 @@ namespace MO31_Laptander_Wisp.NeuroNet
 
         protected Layer(int non, int nopn, NeuronType nt, string nm_Layer)
         {
-
-            //
-            //
             numofneurons = non;
             numofprevneurons = nopn;
             neurons = new Neuron[non];
@@ -57,10 +54,10 @@ namespace MO31_Laptander_Wisp.NeuroNet
                 Weights = WeightInitialize(MemoryMode.INIT, pathFileWeights);
             }
 
-            for(int i = 0; i < non; i++)
+            for (int i = 0; i < non; i++)
             {
                 double[] tmp_weights = new double[nopn + 1];
-                for(int j =  0; j < nopn + 1; j++)
+                for (int j = 0; j < nopn + 1; j++)
                 {
                     tmp_weights[j] = Weights[i, j];
                 }
@@ -69,27 +66,71 @@ namespace MO31_Laptander_Wisp.NeuroNet
 
         }
 
-
-
-
         public double[,] WeightInitialize(MemoryMode mm, string path)
         {
+            char[] delim = new char[] { ';', ' ' };
+            string tmpStr;
+            string[] tmpStrWeights;
+            double[,] weights = new double[numofneurons, numofprevneurons + 1];
+
             switch (mm)
             {
                 case MemoryMode.GET:
+                    tmpStrWeights = File.ReadAllLines(path);
+                    string[] memory_element;
+                    for (int i = 0; i < numofneurons; i++)
+                    {
+                        memory_element = tmpStrWeights[i].Split(delim);
+                        for (int j = 0; j < numofprevneurons + 1; j++)
+                        {
+                            weights[i, j] = double.Parse(memory_element[j].Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
+                        }
+                    }
                     break;
+
                 case MemoryMode.SET:
+                    tmpStrWeights = new string[numofneurons];
+                    if (!File.Exists(path))
+                    {
+                        MessageBox.Show("!!!Внимание!!!\nФайл " + name_Layer + "_memory.csv синаптических весов" + "\nНЕ НАЙДЕН!!!\nПосле нажатия кнопки ОК автоматически создатся отсутсвующий файл," +
+                            " и все значения весов будут сохранены в нём.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+
+                    for (int i = 0; i < numofneurons; i++)
+                    {
+                        tmpStr = neurons[i].Weights[0].ToString();
+                        for (int j = 0; j < numofprevneurons + 1; j++)
+                        {
+                            tmpStr += delim[0] + neurons[i].Weights[j].ToString();
+                        }
+                        tmpStrWeights[i] = tmpStr;
+                    }
+                    File.WriteAllLines(path, tmpStrWeights);
+
                     break;
+
                 case MemoryMode.INIT:
+                    MessageBox.Show("");
+
+                    Random random = new Random();
+
+                    double tmpRatio;
+                    double tmpShift;
+                    double[] tmpArr = new double[numofprevneurons + 1];
+                    tmpStrWeights = new string[numofneurons];
+
+                    for (int i = 0; i < numofneurons + 1; i++)
+                    {
+                        for (int j = 0; j < numofprevneurons + 1; j++)
+                        {
+                            tmpArr[j] = random.NextDouble();
+                        }
+                    }
                     break;
                 default:
                     break;
             }
             return new double[1, 1];
         }
-
-
-
     }
 }
-
