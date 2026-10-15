@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.9.12120.119 stable
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MO31_Laptander_Wisp", "MO31_Laptander_Wisp.csproj", "{4808A7F7-A251-47F0-B146-5C219E315E23}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4808A7F7-A251-47F0-B146-5C219E315E23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4808A7F7-A251-47F0-B146-5C219E315E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4808A7F7-A251-47F0-B146-5C219E315E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4808A7F7-A251-47F0-B146-5C219E315E23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7BE317E2-136B-4926-8C7B-3F45B3C3E811}
+	EndGlobalSection
+EndGlobal
