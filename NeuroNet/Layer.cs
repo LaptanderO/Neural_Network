@@ -196,9 +196,12 @@ namespace MO31_Laptander_Wisp.NeuroNet
                     File.WriteAllLines(path, tmpStrWeights);
 
                     return weightsInit;
-                }
+            }
 
             return weights;
         }
+
+        abstract public void Recognize(Network net, Layer nextLayer); //для прямых проходов
+        abstract public double[] BackwardPass(double[] stuff); //для обратных
     }
 }
