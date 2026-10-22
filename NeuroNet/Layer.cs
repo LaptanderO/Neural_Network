@@ -99,7 +99,7 @@ namespace MO31_Laptander_Wisp.NeuroNet
                     for (int i = 0; i < numofneurons; i++)
                     {
                         tmpStr = neurons[i].Weights[0].ToString();
-                        for (int j = 0; j < numofprevneurons + 1; j++)
+                        for (int j = 1; j < numofprevneurons + 1; j++)
                         {
                             tmpStr += delim[0] + neurons[i].Weights[j].ToString();
                         }
@@ -110,27 +110,95 @@ namespace MO31_Laptander_Wisp.NeuroNet
                     break;
 
                 case MemoryMode.INIT:
-                    MessageBox.Show("");
+
+                    MessageBox.Show("!!! В Н И М А Н И Е !!!\nФайл " + name_Layer + "_memory.csv" +
+                        " синаптических весов\nНЕ НАЙДЕН!!!\nПосле нажатия кнопки ОК автоматически проинициализируются веса и создастся отсутствующий файл," +
+                        " нейросеть вернётся к исходному состоянию <<новорожденности>>, и потребуется обучить её ЗАНОВО.",
+                        "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                     Random random = new Random();
 
                     double tmpRatio;
                     double tmpShift;
-                    double[] tmpArr = new double[numofprevneurons + 1];
+
+                    // Генерация случайных весов
                     tmpStrWeights = new string[numofneurons];
 
-                    for (int i = 0; i < numofneurons + 1; i++)
+                    double[,] weightsInit =
+                        new double[numofneurons, numofprevneurons + 1];
+
+                    double sum = 0.0;
+                    int count = numofneurons * (numofprevneurons + 1);
+
+                    for (int i = 0; i < numofneurons; i++)
                     {
                         for (int j = 0; j < numofprevneurons + 1; j++)
                         {
-                            tmpArr[j] = random.NextDouble();
+                            weightsInit[i, j] = random.NextDouble();
+                            sum += weightsInit[i, j];
                         }
                     }
-                    break;
-                default:
-                    break;
-            }
-            return new double[1, 1];
+
+                    // Вычисление среднего значения
+                    double mean = sum / count;
+
+                    // Центрирование весов относительно нуля
+                    for (int i = 0; i < numofneurons; i++)
+                    {
+                        for (int j = 0; j < numofprevneurons + 1; j++)
+                        {
+                            weightsInit[i, j] -= mean;
+                        }
+                    }
+
+                    // Вычисление стандартного отклонения
+                    double variance = 0.0;
+
+                    for (int i = 0; i < numofneurons; i++)
+                    {
+                        for (int j = 0; j < numofprevneurons + 1; j++)
+                        {
+                            variance += weightsInit[i, j] * weightsInit[i, j];
+                        }
+                    }
+
+                    double stdDev = Math.Sqrt(variance / count);
+
+                    // Целевое стандартное отклонение
+                    double targetStdDev = 1.0 / Math.Sqrt(numofprevneurons);
+
+                    tmpRatio = stdDev > 0.0
+                        ? targetStdDev / stdDev
+                        : 1.0;
+
+                    // Масштабирование весов
+                    for (int i = 0; i < numofneurons; i++)
+                    {
+                        tmpStr = "";
+
+                        for (int j = 0; j < numofprevneurons + 1; j++)
+                        {
+                            weightsInit[i, j] *= tmpRatio;
+
+                            if (j > 0)
+                                tmpStr += ";";
+
+                            tmpStr += weightsInit[i, j].ToString(
+                                "R",
+                                System.Globalization.CultureInfo.InvariantCulture);
+                        }
+
+                        tmpStrWeights[i] = tmpStr;
+                    }
+
+                    // Сохранение весов в CSV
+                    Directory.CreateDirectory(pathDirWeights);
+                    File.WriteAllLines(path, tmpStrWeights);
+
+                    return weightsInit;
+                }
+
+            return weights;
         }
     }
 }
