@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,18 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MO31_Laptander_Wisp.NeuroNet;
 using System.IO;
-using System.Windows.Forms.VisualStyles;//прстранство имен для работы с файловой системой
 
 namespace MO31_Laptander_Wisp
 {
     public partial class FormMain : Form
     {
-        private double[] inputPixels;//Массив входных данных
+        private double[] inputPixels; //Массив входных данных
+        private Network network;
+        
         public FormMain()
         {
             InitializeComponent();
+
             inputPixels = new double[15];
+            network = new Network();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void button_Click(object sender, EventArgs e)
@@ -35,8 +44,9 @@ namespace MO31_Laptander_Wisp
                 inputPixels[btn.TabIndex] = 0d;
             }
         }
-        //сохранить в файл ОБУЧАЮЩИЙ пример
-        private void ButtonSaveTrainSample_Click(object sender, EventArgs e)
+
+        //Сохранить обучающий пример
+        private void buttonSaveTrainSample_Click(object sender, EventArgs e)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "train.txt";
             string tmpStr = numericUpDown_NecessaryOutput.Value.ToString();
@@ -45,12 +55,13 @@ namespace MO31_Laptander_Wisp
             {
                 tmpStr += " " + inputPixels[i].ToString();
             }
-            tmpStr += "\n"; //переход на новую строку текста
+            tmpStr += "\n";
 
             File.AppendAllText(path, tmpStr);
         }
-        //сохранить в файл ТЕСТОВЫЙ пример
-        private void ButtonSaveTestSample_Click(object sender, EventArgs e)
+
+        //Сохранить тестовый пример
+        private void buttonSaveTestSample_Click(object sender, EventArgs e)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "test.txt";
             string tmpStr = numericUpDown_NecessaryOutput.Value.ToString();
@@ -59,9 +70,16 @@ namespace MO31_Laptander_Wisp
             {
                 tmpStr += " " + inputPixels[i].ToString();
             }
-            tmpStr += "\n"; //переход на новую строку текста
+            tmpStr += "\n";
 
             File.AppendAllText(path, tmpStr);
+        }
+
+        private void buttonRecognize_Click(object sender, EventArgs e)
+        {
+            network.ForwardPass(inputPixels);
+            label_output.Text = network.Fact.ToList().IndexOf(network.Fact.Max()).ToString();
+            label_probability.Text = (100 * network.Fact.Max()).ToString("0.00") + "%";
         }
     }
 }
