@@ -5,7 +5,7 @@ namespace MO31_Laptander_Wisp.NeuroNet
         private InputLayer input_layer = null;
         private HiddenLayer hidden_layer1 = new HiddenLayer(70, 15, NeuronType.Hidden, nameof(hidden_layer1));
         private HiddenLayer hidden_layer2 = new HiddenLayer(35, 70, NeuronType.Hidden, nameof(hidden_layer2));
-        private OutputLayer output_layer = new OutputLayer(10, 30, NeuronType.Output, nameof(output_layer));
+        private OutputLayer output_layer = new OutputLayer(10, 35, NeuronType.Output, nameof(output_layer));
 
         private double[] fact = new double[10];
         private double[] e_error_avr;
