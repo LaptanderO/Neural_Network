@@ -46,7 +46,7 @@ namespace MO31_Laptander_Wisp
         }
 
         //Сохранить обучающий пример
-        private void buttonSaveTrainSample_Click(object sender, EventArgs e)
+        private void ButtonSaveTrainSample_Click(object sender, EventArgs e)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "train.txt";
             string tmpStr = numericUpDown_NecessaryOutput.Value.ToString();
@@ -61,7 +61,7 @@ namespace MO31_Laptander_Wisp
         }
 
         //Сохранить тестовый пример
-        private void buttonSaveTestSample_Click(object sender, EventArgs e)
+        private void ButtonSaveTestSample_Click(object sender, EventArgs e)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "test.txt";
             string tmpStr = numericUpDown_NecessaryOutput.Value.ToString();
@@ -75,7 +75,7 @@ namespace MO31_Laptander_Wisp
             File.AppendAllText(path, tmpStr);
         }
 
-        private void buttonRecognize_Click(object sender, EventArgs e)
+        private void ButtonRecognize_Click(object sender, EventArgs e)
         {
             network.ForwardPass(inputPixels);
             label_output.Text = network.Fact.ToList().IndexOf(network.Fact.Max()).ToString();
