@@ -54,8 +54,19 @@ namespace MO31_Laptander_Wisp.NeuroNet
         public void Shuffling_Array_Rows(double[,] arr)
         {
             int j;
-
             Random random = new Random();
+
+            for (int i = arr.GetLength(0) - 1; i > 0; i--)
+            {
+                j = random.Next(i + 1);
+
+                for (int k = 0; k < arr.GetLength(1); k++)
+                {
+                    double temp = arr[i, k];
+                    arr[i, k] = arr[j, k];
+                    arr[j, k] = temp;
+                }
+            }
         }
     }
 }
