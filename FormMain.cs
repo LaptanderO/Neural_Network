@@ -86,6 +86,11 @@ namespace MO31_Laptander_Wisp
         {
             network.Train(network);
 
+            for (int i = 0; i < network.E_error_avr.Length; i++)
+            {
+                chart_Eavr.Series[0].Points.AddY(network.E_error_avr[i]);
+            }
+
             MessageBox.Show("Обучение успешно завершено.", "Иформация", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
