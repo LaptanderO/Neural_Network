@@ -81,5 +81,12 @@ namespace MO31_Laptander_Wisp
             label_output.Text = network.Fact.ToList().IndexOf(network.Fact.Max()).ToString();
             label_probability.Text = (100 * network.Fact.Max()).ToString("0.00") + "%";
         }
+
+        private void buttonTrain_Click(object sender, EventArgs e)
+        {
+            network.Train(network);
+
+            MessageBox.Show("Обучение успешно завершено.", "Иформация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
