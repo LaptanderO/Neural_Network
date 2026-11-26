@@ -1,4 +1,4 @@
-﻿namespace MO31_Laptander_Wisp
+namespace MO31_Laptander_Wisp
 {
     partial class FormMain
     {
@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -49,7 +52,10 @@
             this.numericUpDown_NecessaryOutput = new System.Windows.Forms.NumericUpDown();
             this.label_output = new System.Windows.Forms.Label();
             this.label_probability = new System.Windows.Forms.Label();
+            this.buttonTrain = new System.Windows.Forms.Button();
+            this.chart_Eavr = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_NecessaryOutput)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_Eavr)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -235,10 +241,10 @@
             // RecognizeButton
             // 
             this.RecognizeButton.BackColor = System.Drawing.SystemColors.Control;
-            this.RecognizeButton.Location = new System.Drawing.Point(11, 176);
+            this.RecognizeButton.Location = new System.Drawing.Point(120, 15);
             this.RecognizeButton.Margin = new System.Windows.Forms.Padding(2);
             this.RecognizeButton.Name = "RecognizeButton";
-            this.RecognizeButton.Size = new System.Drawing.Size(87, 28);
+            this.RecognizeButton.Size = new System.Drawing.Size(96, 28);
             this.RecognizeButton.TabIndex = 15;
             this.RecognizeButton.Text = "Распознать";
             this.RecognizeButton.UseVisualStyleBackColor = true;
@@ -246,10 +252,10 @@
             // 
             // ButtonSaveTestSample
             // 
-            this.ButtonSaveTestSample.Location = new System.Drawing.Point(10, 268);
+            this.ButtonSaveTestSample.Location = new System.Drawing.Point(119, 107);
             this.ButtonSaveTestSample.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonSaveTestSample.Name = "ButtonSaveTestSample";
-            this.ButtonSaveTestSample.Size = new System.Drawing.Size(89, 31);
+            this.ButtonSaveTestSample.Size = new System.Drawing.Size(98, 31);
             this.ButtonSaveTestSample.TabIndex = 16;
             this.ButtonSaveTestSample.Text = "Сохр.тест";
             this.ButtonSaveTestSample.UseVisualStyleBackColor = true;
@@ -257,10 +263,10 @@
             // 
             // ButtonSaveTrainSample
             // 
-            this.ButtonSaveTrainSample.Location = new System.Drawing.Point(10, 208);
+            this.ButtonSaveTrainSample.Location = new System.Drawing.Point(119, 47);
             this.ButtonSaveTrainSample.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonSaveTrainSample.Name = "ButtonSaveTrainSample";
-            this.ButtonSaveTrainSample.Size = new System.Drawing.Size(89, 32);
+            this.ButtonSaveTrainSample.Size = new System.Drawing.Size(98, 32);
             this.ButtonSaveTrainSample.TabIndex = 17;
             this.ButtonSaveTrainSample.Text = "Сохр.обуч";
             this.ButtonSaveTrainSample.UseVisualStyleBackColor = true;
@@ -268,18 +274,18 @@
             // 
             // numericUpDown_NecessaryOutput
             // 
-            this.numericUpDown_NecessaryOutput.Location = new System.Drawing.Point(11, 244);
+            this.numericUpDown_NecessaryOutput.Location = new System.Drawing.Point(120, 83);
             this.numericUpDown_NecessaryOutput.Margin = new System.Windows.Forms.Padding(2);
             this.numericUpDown_NecessaryOutput.Name = "numericUpDown_NecessaryOutput";
-            this.numericUpDown_NecessaryOutput.Size = new System.Drawing.Size(87, 20);
+            this.numericUpDown_NecessaryOutput.Size = new System.Drawing.Size(96, 20);
             this.numericUpDown_NecessaryOutput.TabIndex = 18;
             // 
             // label_output
             // 
             this.label_output.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_output.Location = new System.Drawing.Point(118, 10);
+            this.label_output.Location = new System.Drawing.Point(5, 176);
             this.label_output.Name = "label_output";
-            this.label_output.Size = new System.Drawing.Size(130, 28);
+            this.label_output.Size = new System.Drawing.Size(113, 28);
             this.label_output.TabIndex = 19;
             this.label_output.Text = "OUT";
             this.label_output.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -287,18 +293,49 @@
             // label_probability
             // 
             this.label_probability.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_probability.Location = new System.Drawing.Point(118, 76);
+            this.label_probability.Location = new System.Drawing.Point(109, 178);
             this.label_probability.Name = "label_probability";
-            this.label_probability.Size = new System.Drawing.Size(130, 28);
+            this.label_probability.Size = new System.Drawing.Size(127, 28);
             this.label_probability.TabIndex = 20;
             this.label_probability.Text = "Probability";
             this.label_probability.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // buttonTrain
+            // 
+            this.buttonTrain.Location = new System.Drawing.Point(120, 143);
+            this.buttonTrain.Name = "buttonTrain";
+            this.buttonTrain.Size = new System.Drawing.Size(97, 31);
+            this.buttonTrain.TabIndex = 21;
+            this.buttonTrain.Text = "Обучить";
+            this.buttonTrain.UseVisualStyleBackColor = true;
+            this.buttonTrain.Click += new System.EventHandler(this.buttonTrain_Click);
+            // 
+            // chart_Eavr
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart_Eavr.ChartAreas.Add(chartArea1);
+            this.chart_Eavr.Location = new System.Drawing.Point(253, 15);
+            this.chart_Eavr.Name = "chart_Eavr";
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.Red;
+            series1.Name = "Series_Eavr";
+            this.chart_Eavr.Series.Add(series1);
+            this.chart_Eavr.Size = new System.Drawing.Size(362, 208);
+            this.chart_Eavr.TabIndex = 22;
+            this.chart_Eavr.Text = "chart1";
+            title1.Name = "Title1";
+            title1.Text = "График средних энергий ошибок";
+            this.chart_Eavr.Titles.Add(title1);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(260, 317);
+            this.ClientSize = new System.Drawing.Size(620, 226);
+            this.Controls.Add(this.chart_Eavr);
+            this.Controls.Add(this.buttonTrain);
             this.Controls.Add(this.label_probability);
             this.Controls.Add(this.label_output);
             this.Controls.Add(this.numericUpDown_NecessaryOutput);
@@ -324,6 +361,7 @@
             this.Name = "FormMain";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_NecessaryOutput)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_Eavr)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -351,6 +389,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDown_NecessaryOutput;
         private System.Windows.Forms.Label label_output;
         private System.Windows.Forms.Label label_probability;
+        private System.Windows.Forms.Button buttonTrain;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_Eavr;
     }
 }
 
